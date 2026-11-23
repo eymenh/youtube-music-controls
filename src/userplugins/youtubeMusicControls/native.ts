@@ -331,3 +331,13 @@ export async function playResult(_event: IpcMainInvokeEvent, index: number) {
     if (!musicPage()) return false;
     return await player!.webContents.executeJavaScript(`(${PLAY_RESULT_SCRIPT})(${index})`, true) === true;
 }
+
+// YMC_DISCORD_EXIT_CLEANUP
+app.once("before-quit", () => {
+    allowDestroy = true;
+    const win = player;
+    player = null;
+    if (win && !win.isDestroyed()) {
+        win.destroy();
+    }
+});
