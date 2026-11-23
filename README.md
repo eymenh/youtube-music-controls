@@ -19,7 +19,7 @@ It runs the official YouTube Music website in an isolated Electron session, so *
 > **Status — Beta.** Google account sign-in, long-running playback and compatibility with future Discord / Vencord updates are **not guaranteed**. This is not an official Google, YouTube, Discord or Vencord product.
 
 <div align="center">
-  <img src="assets/player-preview.png" alt="Compact YouTube Music Controls player inside Discord" width="330" />
+  <img src="assets/ymc-preview.png" alt="Compact YouTube Music Controls player inside Discord" width="330" />
   <br />
   <sub>Player preview · Discord desktop theme</sub>
 </div>
