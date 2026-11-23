@@ -1,0 +1,29 @@
+name: Bug report
+description: Report a regression or playback issue without exposing private credentials.
+title: '[BUG] '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not share Google cookies, authentication headers, or session files.
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Windows version, Discord channel, and Vencord revision
+      placeholder: Windows 11 / Discord Stable / Vencord commit ...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true

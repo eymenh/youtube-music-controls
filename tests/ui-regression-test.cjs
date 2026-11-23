@@ -1,0 +1,18 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const root = path.join(__dirname, '..', 'src', 'userplugins', 'youtubeMusicControls');
+const ui = fs.readFileSync(path.join(root, 'index.tsx'), 'utf8');
+const css = fs.readFileSync(path.join(root, 'style.css'), 'utf8');
+const native = fs.readFileSync(path.join(root, 'native.ts'), 'utf8');
+assert.match(ui, /src="https:\/\/music\.youtube\.com\/img\/favicon_32\.png"/);
+assert.match(ui, /<YouTubeMusicFavicon\s*\/>/);
+assert.doesNotMatch(ui, /className="vc-ymc-dot"/);
+assert.doesNotMatch(ui, /Bibliothèque \/ connexion/);
+assert.doesNotMatch(ui, />Arrêter<\/button>/);
+assert.match(ui, /aria-label="Arrêter YouTube Music"/);
+assert.match(ui, /aria-label="Ouvrir YouTube Music"/);
+assert.match(native, /"music\.youtube\.com"/);
+assert.match(css, /vc-ymc-site-icon/);
+assert.match(css, /justify-content:\s*flex-end/);
+console.log('OK favicon officiel + icône de secours + actions compactes');

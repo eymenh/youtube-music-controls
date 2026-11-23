@@ -1,0 +1,14 @@
+{
+  "name": "youtube-music-controls-vencord",
+  "private": true,
+  "version": "3.2.3-beta.1",
+  "description": "Experimental YouTube Music Controls for Vencord Desktop",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "test": "node tests/smoke-test.cjs && node tests/native-mock-test.cjs && node tests/ui-regression-test.cjs"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  },
+  "engines": {"node": ">=22"}
+}

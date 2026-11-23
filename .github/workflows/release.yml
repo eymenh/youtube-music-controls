@@ -1,0 +1,51 @@
+name: Windows Vencord release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Compile, package and publish
+    runs-on: windows-latest
+    steps:
+      - name: Checkout plugin sources
+        uses: actions/checkout@v4
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install test dependencies
+        run: npm install --no-fund --no-audit
+      - name: Test plugin before compilation
+        run: npm test
+      - name: Compile Vencord Desktop with plugin
+        shell: pwsh
+        run: .\scripts\build-release.ps1 -Tag "${{ github.ref_name }}"
+      - name: Verify distribution assets
+        shell: pwsh
+        run: |
+          $expected = @(
+            "release/YouTube-Music-Controls-${{ github.ref_name }}-Windows-Vencord-dist.zip",
+            "release/YouTube-Music-Controls-${{ github.ref_name }}-source.zip",
+            'release/SHA256SUMS.txt',
+            'release/VENCORD_COMMIT.txt'
+          )
+          foreach ($file in $expected) {
+            if (!(Test-Path $file)) { throw "Missing release asset: $file" }
+          }
+      - name: Create GitHub pre-release
+        uses: softprops/action-gh-release@v2
+        with:
+          prerelease: true
+          draft: false
+          name: YouTube Music Controls ${{ github.ref_name }}
+          body_path: .github/RELEASE_NOTES.md
+          files: |
+            release/*.zip
+            release/SHA256SUMS.txt
+            release/VENCORD_COMMIT.txt
